@@ -1,0 +1,169 @@
+package {{pkg}};
+
+import cn.com.zjs.cloud.coolcode.BaseResponse;
+import cn.com.zjs.cloud.coolcode.Page;
+
+import {{entityModel.className}};
+import {{entityModel.parentPkg}}.dao.{{entityModel.simpleClassName}}Dao;
+import {{entityModel.parentPkg}}.service.{{entityModel.simpleClassName}}Service;
+
+import org.apache.ibatis.annotations.Param;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Map;
+
+/**
+ * {{entityModel.simpleClassName}} Service Interface
+ * @author generator
+ * Date
+ */
+ @Service
+public class {{simpleClassName}} implements {{entityModel.simpleClassName}}Service {
+    private static final Logger logger = LoggerFactory.getLogger({{simpleClassName}}.class);
+
+    @Autowired
+    private {{entityModel.simpleClassName}}Dao {{entityModel.instanceName}}Dao;
+
+    /**
+     * Save {{entityModel.simpleClassName}}.
+     * @param {{entityModel.instanceName}}
+     * @return id
+     */
+    @Override
+    public BaseResponse save({{entityModel.simpleClassName}} {{entityModel.instanceName}}){
+        BaseResponse baseResponse = saveValidate({{entityModel.instanceName}});
+        if(baseResponse.getCode() != BaseResponse.SUCCESS_CODE) return baseResponse;
+        try {
+            Long id = {{entityModel.instanceName}}Dao.save({{entityModel.instanceName}});
+            // 反查目的是保持前台与数据库数据一致
+            {{entityModel.simpleClassName}} saved{{entityModel.simpleClassName}} = {{entityModel.instanceName}}Dao.queryById(id);
+            baseResponse.setData(saved{{entityModel.simpleClassName}});
+        } catch (Exception e){
+            logger.error("Save {{entityModel.simpleClassName}} error!", e);
+        }
+        return baseResponse;
+    }
+
+
+    /**
+     * Update {{entityModel.simpleClassName}}, if you need a horizontal permission, please use updateByCondition instead.
+     * @param {{entityModel.instanceName}}
+     * @return
+     */
+    @Override
+    public BaseResponse update({{entityModel.simpleClassName}} {{entityModel.instanceName}}){
+        BaseResponse baseResponse = updateValidate({{entityModel.instanceName}});
+        if(baseResponse.getCode() != BaseResponse.SUCCESS_CODE) return baseResponse;
+        try {
+            Long id = {{entityModel.instanceName}}Dao.update({{entityModel.instanceName}});
+            // 反查目的是保持前台与数据库数据一致
+            {{entityModel.simpleClassName}} saved{{entityModel.simpleClassName}} = {{entityModel.instanceName}}Dao.queryById(id);
+            baseResponse.setData(saved{{entityModel.simpleClassName}});
+        } catch (Exception e){
+            logger.error("Save {{entityModel.simpleClassName}} error!", e);
+        }
+        return baseResponse;
+    }
+
+    private BaseResponse saveValidate({{entityModel.simpleClassName}} {{entityModel.instanceName}}) {
+        return new BaseResponse(BaseResponse.SUCCESS_CODE, "Validate success!");
+    }
+
+    private BaseResponse updateValidate({{entityModel.simpleClassName}} {{entityModel.instanceName}}) {
+        if({{entityModel.instanceName}}.getId() == null) return new BaseResponse(BaseResponse.FAIL_DEFAULT_CODE, "Illegal request!");
+        return new BaseResponse(BaseResponse.SUCCESS_CODE, "Validate success!");
+    }
+
+    /**
+     * Query record by id, if you need a horizontal permission, please use updateByCondition instead.
+     * @param id
+     * @return
+     */
+    @Override
+    public {{entityModel.simpleClassName}} queryById(Long id){
+        return {{entityModel.instanceName}}Dao.queryById(id);
+    }
+
+    /**
+     * Delete record by id, if you need a horizontal permission, please use updateByCondition instead.
+     * @param id
+     * @return
+     */
+    @Override
+    public Integer deleteById(Long id){
+        return {{entityModel.instanceName}}Dao.deleteById(id);
+    }
+
+    /**
+     * Get count by condition
+     * @param condition
+     * @return
+     */
+    @Override
+    public Long countByCondition(@Param("condition") Map<String, Object> condition){
+        return {{entityModel.instanceName}}Dao.countByCondition(condition);
+    }
+
+    /**
+     * Update by condition.
+     * @param id
+     * @param condition
+     * @return
+     */
+    @Override
+    public BaseResponse updateByCondition(@Param("id") Long id, @Param("condition") Map<String, Object> condition){
+        if(id == null) return new BaseResponse(BaseResponse.FAIL_DEFAULT_CODE, "Illegal request!");
+        BaseResponse baseResponse = updateByConditionValidate(condition);
+        if(baseResponse.getCode() != BaseResponse.SUCCESS_CODE) return baseResponse;
+        try {
+            {{entityModel.instanceName}}Dao.updateByCondition(id, condition);
+            // 反查目的是保持前台与数据库数据一致
+            {{entityModel.simpleClassName}} saved{{entityModel.simpleClassName}} = {{entityModel.instanceName}}Dao.queryById(id);
+            baseResponse.setData(saved{{entityModel.simpleClassName}});
+        } catch (Exception e){
+            logger.error("Save {{entityModel.simpleClassName}} error!", e);
+        }
+        return baseResponse;
+    }
+
+    private BaseResponse updateByConditionValidate(Map<String, Object> condition) {
+        return new BaseResponse(BaseResponse.SUCCESS_CODE, "Validate success!");
+    }
+
+    /**
+     * Query by condition.
+     * @param condition
+     * @return
+     */
+    @Override
+    public List<{{entityModel.simpleClassName}}> queryByCondition(@Param("condition") Map<String, Object> condition){
+        return {{entityModel.instanceName}}Dao.queryByCondition(condition);
+    }
+
+    /**
+     * Query by condition for page.
+     * @param condition
+     * @param pageIndex
+     * @param pageSize
+     * @return
+     */
+    @Override
+    public Page<{{entityModel.simpleClassName}}> queryForPage(@Param("condition") Map<String, Object> condition, int pageIndex, int pageSize){
+        return {{entityModel.instanceName}}Dao.queryForPage(condition, pageIndex, pageSize);
+    }
+
+    /**
+     * Delete by condition.
+     * @param condition
+     * @return
+     */
+    @Override
+    public Integer deleteByCondition(@Param("condition") Map<String, Object> condition){
+        return {{entityModel.instanceName}}Dao.deleteByCondition(condition);
+    }
+
+}

@@ -1,0 +1,149 @@
+package {{pkg}};
+
+import cn.com.zjs.cloud.coolcode.BaseResponse;
+import cn.com.zjs.cloud.coolcode.Page;
+
+import {{entityModel.className}};
+import {{entityModel.parentPkg}}.service.{{entityModel.simpleClassName}}Service;
+
+import org.apache.ibatis.annotations.Param;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.List;
+import java.util.Map;
+
+/**
+ * {{entityModel.simpleClassName}} Service Interface
+ * @author generator
+ * Date
+ */
+ @Controller
+ @RequestMapping("/{{entityModel.instanceName}}/v1")
+public class {{simpleClassName}} {
+    private static final Logger logger = LoggerFactory.getLogger({{simpleClassName}}.class);
+
+    @Autowired
+    private {{entityModel.simpleClassName}}Service {{entityModel.instanceName}}Service;
+
+    /**
+     * Save {{entityModel.simpleClassName}}.
+     * @param {{entityModel.instanceName}}
+     * @return id
+     */
+    @RequestMapping("/save")
+    public BaseResponse save({{entityModel.simpleClassName}} {{entityModel.instanceName}}){
+        //TODO 编写自己的校验代码，没有校验代码可以删除此两行
+        BaseResponse baseResponse = saveValidate({{entityModel.instanceName}});
+        if(baseResponse.getCode() != BaseResponse.SUCCESS_CODE) return baseResponse;
+
+        return {{entityModel.instanceName}}Service.save({{entityModel.instanceName}});
+    }
+
+
+    /**
+     * Update {{entityModel.simpleClassName}}, if you need a horizontal permission, please use updateByCondition instead.
+     * @param {{entityModel.instanceName}}
+     * @return
+     */
+    @RequestMapping("/update")
+    public BaseResponse update({{entityModel.simpleClassName}} {{entityModel.instanceName}}){
+        //TODO 编写自己的校验代码，没有校验代码可以删除此两行
+        BaseResponse baseResponse = updateValidate({{entityModel.instanceName}});
+        if(baseResponse.getCode() != BaseResponse.SUCCESS_CODE) return baseResponse;
+
+        return {{entityModel.instanceName}}Service.update({{entityModel.instanceName}});
+    }
+
+    private BaseResponse saveValidate({{entityModel.simpleClassName}} {{entityModel.instanceName}}) {
+        return new BaseResponse(BaseResponse.SUCCESS_CODE, "Validate success!");
+    }
+
+    private BaseResponse updateValidate({{entityModel.simpleClassName}} {{entityModel.instanceName}}) {
+        if({{entityModel.instanceName}}.getId() == null) return new BaseResponse(BaseResponse.FAIL_DEFAULT_CODE, "Illegal request!");
+        return new BaseResponse(BaseResponse.SUCCESS_CODE, "Validate success!");
+    }
+
+    /**
+     * Query record by id, if you need a horizontal permission, please use updateByCondition instead.
+     * @param id
+     * @return
+     */
+    @RequestMapping("/queryById")
+    public {{entityModel.simpleClassName}} queryById(Long id){
+        return {{entityModel.instanceName}}Service.queryById(id);
+    }
+
+    /**
+     * Delete record by id, if you need a horizontal permission, please use updateByCondition instead.
+     * @param id
+     * @return
+     */
+    @RequestMapping("/deleteById")
+    //根据业务要求判定是否暴露此接口
+    public Integer deleteById(Long id){
+        return {{entityModel.instanceName}}Service.deleteById(id);
+    }
+
+    /**
+     * Get count by condition
+     * @param condition
+     * @return
+     */
+    //根据业务要求判定是否暴露此接口
+    @RequestMapping("/countByCondition")
+    public Long countByCondition(@Param("condition") Map<String, Object> condition){
+        return {{entityModel.instanceName}}Service.countByCondition(condition);
+    }
+
+    /**
+     * Update by condition.
+     * @param id
+     * @param condition
+     * @return
+     */
+    @RequestMapping("/updateByCondition")
+    public BaseResponse updateByCondition(@Param("id") Long id, @Param("condition") Map<String, Object> condition){
+        if(id == null) return new BaseResponse(BaseResponse.FAIL_DEFAULT_CODE, "Illegal request!");
+
+        return {{entityModel.instanceName}}Service.updateByCondition(id, condition);
+    }
+
+    /**
+     * Query by condition.
+     * @param condition
+     * @return
+     */
+    //根据业务要求判定是否暴露此接口
+    @RequestMapping("/queryByCondition")
+    public List<{{entityModel.simpleClassName}}> queryByCondition(@Param("condition") Map<String, Object> condition){
+        return {{entityModel.instanceName}}Service.queryByCondition(condition);
+    }
+
+    /**
+     * Query by condition for page.
+     * @param condition
+     * @param pageIndex
+     * @param pageSize
+     * @return
+     */
+    @RequestMapping("/queryForPage")
+    public Page<{{entityModel.simpleClassName}}> queryForPage(@Param("condition") Map<String, Object> condition, int pageIndex, int pageSize){
+        return {{entityModel.instanceName}}Service.queryForPage(condition, pageIndex, pageSize);
+    }
+
+    /**
+     * Delete by condition.
+     * @param condition
+     * @return
+     */
+    //根据业务要求判定是否暴露此接口
+    // @RequestMapping("/deleteByCondition")
+    public Integer deleteByCondition(@Param("condition") Map<String, Object> condition){
+        return {{entityModel.instanceName}}Service.deleteByCondition(condition);
+    }
+
+}

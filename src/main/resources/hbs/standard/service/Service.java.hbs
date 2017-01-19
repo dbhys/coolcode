@@ -1,0 +1,85 @@
+package {{pkg}};
+
+import cn.com.zjs.cloud.coolcode.BaseResponse;
+import cn.com.zjs.cloud.coolcode.Page;
+
+import {{entityModel.className}};
+
+import org.apache.ibatis.annotations.Param;
+import java.util.List;
+import java.util.Map;
+
+/**
+ * PsdUser Service Interface
+ * @author generator
+ * Date
+ */
+public interface {{simpleClassName}} {
+
+    /**
+     * Save {{entityModel.simpleClassName}}.
+     * @param {{entityModel.instanceName}}
+     * @return id
+     */
+    BaseResponse save({{entityModel.simpleClassName}} {{entityModel.instanceName}});
+
+    /**
+     * Update {{entityModel.simpleClassName}}, if you need a horizontal permission, please use updateByCondition instead.
+     * @param {{entityModel.instanceName}}
+     * @return
+     */
+    BaseResponse update({{entityModel.simpleClassName}} {{entityModel.instanceName}});
+
+    /**
+     * Query record by id, if you need a horizontal permission, please use updateByCondition instead.
+     * @param id
+     * @return
+     */
+    {{entityModel.simpleClassName}} queryById(Long id);
+
+    /**
+     * Delete record by id, if you need a horizontal permission, please use updateByCondition instead.
+     * @param id
+     * @return
+     */
+    Integer deleteById(Long id);
+
+    /**
+     * Get count by condition
+     * @param condition
+     * @return
+     */
+    Long countByCondition(@Param("condition")Map<String, Object> condition);
+
+    /**
+     * Update by condition.
+     * @param id
+     * @param condition
+     * @return
+     */
+    BaseResponse updateByCondition(@Param("id") Long id, @Param("condition")Map<String, Object> condition);
+
+    /**
+     * Query by condition.
+     * @param condition
+     * @return
+     */
+    List<{{entityModel.simpleClassName}}> queryByCondition(@Param("condition")Map<String, Object> condition);
+
+    /**
+     * Query by condition for page.
+     * @param condition
+     * @param pageIndex
+     * @param pageSize
+     * @return
+     */
+    Page<{{entityModel.simpleClassName}}> queryForPage(@Param("condition")Map<String, Object> condition, int pageIndex, int pageSize);
+
+    /**
+     * Delete by condition.
+     * @param condition
+     * @return
+     */
+    Integer deleteByCondition(@Param("condition")Map<String, Object> condition);
+
+}

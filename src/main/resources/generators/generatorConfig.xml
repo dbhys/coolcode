@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+
+    <context id="Mysql" targetRuntime="MyBatis3Simple" defaultModelType="flat">
+        <!--<plugin type="tk.mybatis.mapper.generator.MapperPlugin">
+            <property name="mappers" value="tk.mybatis.mapper.common.Mapper"/>
+            &lt;!&ndash; caseSensitive默认false，当数据库表名区分大小写时，可以将该属性设置为true &ndash;&gt;
+            <property name="caseSensitive" value="true"/>
+        </plugin>-->
+
+        <commentGenerator>
+            <property name="suppressAllComments" value="true" />
+        </commentGenerator>
+
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://10.10.13.12:3306/test"
+                        userId="root"
+                        password="root">
+        </jdbcConnection>
+
+        <javaModelGenerator targetPackage="com.dbhys.cloud.util.model" targetProject="src/main/java"/>
+
+        <sqlMapGenerator targetPackage="com.dbhys.cloud.util.dao"  targetProject="src/main/resources"/>
+
+        <javaClientGenerator targetPackage="com.dbhys.cloud.util.dao" targetProject="src/main/java" type="XMLMAPPER" />
+
+        <table tableName="%" >
+            <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
+        </table>
+    </context>
+</generatorConfiguration>
